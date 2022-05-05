@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous"></link>
+
+<h:head>
+	<title>Employees</title>
+</h:head>
+<h:body>
+	<div class="container">
+
+
+		<h:form id="search-form" class='m-4'>
+			<h:outputText class='mr-2' value="Search by Id :"></h:outputText>
+			<h:inputText id="searchhId" value="#{employeecntrl.seacrhId}"
+				class='mr-4'></h:inputText>
+			<h:commandButton value="Search" type="submit" class="btn btn-info"
+				action="#{employeecntrl.searchEmployee}"></h:commandButton>
+		</h:form>
+
+		<h:form id="employee-list">
+			<h:dataTable class="table table-dark" value="#{employeecntrl.getAll()}"
+				var="employee" cellpadding="2" cellspacing="2" border="1">
+
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{employee.id}"></h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">First Name</f:facet>
+					<h:outputText value="#{employee.firstName}"></h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Last Name</f:facet>
+					<h:outputText value="#{employee.lastName}"></h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Title</f:facet>
+					<h:outputText value="#{employee.title}"></h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Division</f:facet>
+					<h:outputText value="#{employee.division}"></h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Building</f:facet>
+					<h:outputText value="#{employee.building}"></h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Room</f:facet>
+					<h:outputText value="#{employee.room}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Edit</f:facet>
+					<h:commandButton value="Edit" type="submit" class="btn btn-info"
+						action="#{updateController.search}">
+						<f:param name="id" value="#{employee.id}" />
+					</h:commandButton>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Delete</f:facet>
+					<h:commandButton value="Delete" type="submit" class="btn btn-warning"
+						action="#{updateController.delete}">
+						<f:param name="id" value="#{employee.id}" />
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+			<h:commandButton value="Delete All" type="submit"
+				action="#{employeecntrl.deleteAll}" class=" mb-2 btn btn-danger"></h:commandButton>
+
+		</h:form>
+
+		<h:form enctype="multipart/form-data" id="upload-form"
+			class="form-group" style="width: 38%;">
+			<h:message for="fileID" class="text-danger"></h:message>
+			<h:inputFile id="fileID" value="#{fileUpload.uploadedFile}"
+				required="true" alt="upload-file" class="mb-2 border"></h:inputFile>
+			<h:commandButton value="Upload File" type="submit"
+				action="#{fileUpload.savefile}" class="ml-2 btn btn-primary"></h:commandButton>
+
+		</h:form>
+
+
+
+	</div>
+
+</h:body>
+</html>
+
+
+
+
